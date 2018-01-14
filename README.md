@@ -1,2 +1,2 @@
-# tomos-mining-gui
+# Tomos Mining GUI
 GUI Desktop Application for TomosMining Pool
