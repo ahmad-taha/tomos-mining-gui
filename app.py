@@ -10,32 +10,53 @@ import time
 import requests
 import webbrowser
 
+# DEFAULT_COLOR = "#2a2727" # Think about this color :)
+DEFAULT_COLOR = "#3498db"
+
 class MainWindow(QWidget):
     def __init__(self,parent=None):
         super(MainWindow,self).__init__(parent)
 
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
         self.btc = ""
         
 
     def window(self):
         self.setGeometry(100,100,600,700)
 
+        QtGui.QFontDatabase.addApplicationFont(resource_path(r'Fonts\Ubuntu-Light.ttf'))
+
+        # self.setStyleSheet("QWidget{background-color:#DFE6EC;font-family:'Ubuntu Light';border:0px solid "+DEFAULT_COLOR_HOVER+";}")
+
+        self.border = QLabel(self)
+        self.border.setGeometry(0,0,600,700)
+        self.border.setStyleSheet("border:2px solid "+DEFAULT_COLOR+";border-bottom:transparent;botder-right:transparent;border-top:transparent;")
+        self.border.setDisabled(True)
+
+        self.logo = QPushButton(self)
+        self.logo.setStyleSheet("background-color:transparent;border:0;")
+        self.logo.setIcon(QIcon(resource_path(r"Icons\logo.png")))
+        self.logo.setIconSize(QSize(390,100))
+        self.logo.move(10,-5)
+
+
         close = QPushButton(self)
-        close.setGeometry(550,0,50,50)
+        close.setGeometry(530,20,50,50)
+        close.setStyleSheet(".QPushButton{background-color:transparent;}")
         # close.setStyleSheet(".QPushButton{background-color:transparent;border:0;border-bottom:0px solid #34495e;} .QPushButton:hover{background-color:"+DEFAULT_COLOR_HOVER+";} .QPushButton:pressed{border-top:2px solid "+DEFAULT_COLOR_HOVER+";}")
         close.setIcon(QIcon(resource_path(r"Icons\close.png")))
-        close.setIconSize(QSize(13,13))
+        close.setIconSize(QSize(18,18))
         close.setCursor(Qt.PointingHandCursor)
         close.clicked.connect(self.close)
         
-        minim = QPushButton(self)
-        minim.setGeometry(500,0,50,50)
-        # minim.setStyleSheet(".QPushButton{background-color:transparent;border:0;border-bottom:0px solid #34495e;} .QPushButton:hover{background-color:"+DEFAULT_COLOR_HOVER+";} .QPushButton:pressed{border-top:2px solid "+DEFAULT_COLOR_HOVER+";}")
-        minim.setIcon(QIcon(resource_path(r"Icons\minim.png")))
-        minim.setIconSize(QSize(15,15))
-        minim.setCursor(Qt.PointingHandCursor)
-        minim.clicked.connect(self.showMinimized)
+        # minim = QPushButton(self)
+        # minim.setGeometry(500,0,50,50)
+        # # minim.setStyleSheet(".QPushButton{background-color:transparent;border:0;border-bottom:0px solid #34495e;} .QPushButton:hover{background-color:"+DEFAULT_COLOR_HOVER+";} .QPushButton:pressed{border-top:2px solid "+DEFAULT_COLOR_HOVER+";}")
+        # minim.setIcon(QIcon(resource_path(r"Icons\minim.png")))
+        # minim.setIconSize(QSize(15,15))
+        # minim.setCursor(Qt.PointingHandCursor)
+        # minim.clicked.connect(self.showMinimized)
 
         thread = threading.Thread(target=self.animate)
         thread.start()
